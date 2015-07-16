@@ -6,25 +6,23 @@ For comparison, here is a possible solution, so you can compare notes:
 
 ```js
 module.exports = function generate(isEven) {
-  var num;
-
-  if (isEven) {
-    num = 0;
-  } else {
-    num = -1;
-  }
+  var num = null;
 
   var myIterator = {
     next: function(swap) {
-
-      num += (swap ? 1 : 2);
+      if (num === null) {
+        num = isEven
+          ? (swap ? 1 : 2)
+          : (swap ? 2: 1);
+      } else {
+        num = num + (swap ? 1 : 2);
+      }
 
       return {
         value: num
       }
-
     }
-  }
+  };
 
   return myIterator;
 }
